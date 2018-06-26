@@ -1,5 +1,3 @@
-Не понимаю, почему не компилируется...
-
 ```sql
 /*
 Реализовать процедуру getEquip, принимающую на вход pID_EQUIP_KITS_INST default null и отдающую(out) sys_refcursor.
@@ -26,7 +24,7 @@ BEGIN
             cu.v_username AS v_client_login,
             fc.id_contract_inst AS id_contract,
             sekt.v_name AS v_kit_name,
-            getdecoder(sekt.id_equip_kits_inst) AS n_decoder
+            getdecoder(sek.id_equip_kits_inst) AS n_decoder
                      FROM
             fw_clients fcl
             JOIN ci_users cu ON cu.id_client_inst = fcl.id_client_inst
@@ -51,7 +49,7 @@ BEGIN
             cu.v_username AS v_client_login,
             fc.id_contract_inst AS id_contract,
             sekt.v_name AS v_kit_name,
-            getdecoder(sekt.id_equip_kits_inst) AS n_decoder
+            getdecoder(sek.id_equip_kits_inst) AS n_decoder
                      FROM
             fw_clients fcl
             JOIN ci_users cu ON cu.id_client_inst = fcl.id_client_inst
@@ -66,7 +64,7 @@ BEGIN
             JOIN scd_equipment_kits_type sekt ON sekt.id_equip_kits_type = sek.id_equip_kits_type
                                                  AND sekt.dt_start <= current_timestamp
                                                  AND sekt.dt_stop > current_timestamp
-                                                 AND sekt.id_equip_kits_inst = pid_equip_kits_inst  /* <-- */
+                                                 AND sek.id_equip_kits_inst = pid_equip_kits_inst  /* <-- */
                      WHERE
             fcl.dt_start <= current_timestamp
             AND fcl.dt_stop > current_timestamp;
